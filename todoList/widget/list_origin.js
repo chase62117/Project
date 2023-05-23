@@ -1,5 +1,3 @@
-//export function createList(id, option) {
-
 export function createList(id, option) {
     // var el = document.createElement("ul");
     var el = document.createElement("li");

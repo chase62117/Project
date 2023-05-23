@@ -11,7 +11,7 @@ function render() {
     div.append(Widget.input("todoInput", {}));
     div.append(Widget.button("btnSave", { content: "입력", onClick: onClickSave }));
 
-    todoListEl = Widget.list("todoList", {
+    todoListEl = Widget.ul("todoList", {
         //datas: getSortedTodoList({ done: false }),
         datas: todolist.filter(function(item) {return !item.done}),
         columns: [
@@ -21,7 +21,7 @@ function render() {
         ],
     });
 
-    doneListEl = Widget.list("todoListDone", {
+    doneListEl = Widget.ul("todoListDone", {
         //datas: getSortedTodoList({ done: true }),
         datas: todolist.filter(function(item) {return item.done}),
         columns: [
@@ -29,7 +29,21 @@ function render() {
             { id: "todo", render: renderColumnTodo },
             { id: "delete", render: renderColumnDelete },
         ],
-    })
+    });
+
+    // todoListEl = Widget.ul("todoList");
+    // doneListEl = Widget.ul("todoListDone");
+
+    // todolist.filter(function(item) {return !item.done}).forEach(function (item) {
+    //     todoListEl.append(Widget.list("list", {
+    //         data: item,
+    //         columns: [
+    //             { id: "done", render: renderColumnDone },
+    //             { id: "todo", render: renderColumnTodo },
+    //             { id: "delete", render: renderColumnDelete },
+    //         ],
+    //     }))
+    // });
 
     div.append(todoListEl);
     div.append(doneListEl);
@@ -58,7 +72,7 @@ function onClickSave() {
 
 
 function checkboxOnChange (e) {
-    
+    //data.done = e.target.checked;
 }
 
 function delBtnOnClick () {
