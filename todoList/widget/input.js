@@ -5,12 +5,8 @@ export function createInput(id, option) {
     if(option.onKeyDown){
         el.onkeydown = option.onKeyDown;
     }
-
-    if(option.onChange){
-        el.onchange = option.onChange;
-    }
     
     return{
         el: el,
-    }
+    }   
 }

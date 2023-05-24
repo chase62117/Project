@@ -1,4 +1,5 @@
 var todolist = [];
+
 var todoListEl;
 var doneListEl;
 
@@ -71,10 +72,56 @@ function onClickSave() {
 }
 
 
-function checkboxOnChange (e) {
-    //data.done = e.target.checked;
+function delBtnOnClick (e) {
+    //
 }
 
-function delBtnOnClick () {
 
+function renderColumnDone(id, data) {
+    var option = { 
+        data: data,
+        onChange: function (e) { 
+        data.done = e.target.checked;
+
+
+        // todoListEl.reload(todolist.filter(function(item) {return !item.done}));
+        // doneListEl.reload(todolist.filter(function(item) {return item.done}));
+        renderTodoList();
+        renderDoneList();
+    }};
+
+    var checkboxEl = Widget.checkbox(id, option);
+
+    return checkboxEl
+}
+
+function renderColumnTodo(id, data) {
+    var option = {
+        id: id, 
+        content: data.content,
+    };
+
+    return Widget.span(id, option);
+}
+
+function renderColumnDelete(id, data){
+    var option = {
+        id: id, 
+        content: '삭제', 
+        onClick: function (e) {
+            // splice 사용
+            todolist.splice(todolist.indexOf(data), 1); // 배열 자체 수정. 주소 유지됨
+            data.done ? renderDoneList() : renderTodoList();
+        },
+    };
+
+    return Widget.button(id, option);
+}
+
+function renderTodoList() {
+    todoListEl.reload(todolist.filter(function(item) {return !item.done}));
+}
+
+function renderDoneList() {
+    doneListEl.reload(todolist.filter(function(item) {return item.done}));
 }

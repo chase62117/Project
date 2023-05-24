@@ -1,6 +1,7 @@
 import { createButton } from "./button";
 import { createDiv } from "./div";
 import { createInput } from "./input";
+import { createCheckbox } from "./inputcheckbox";
 import { createUl } from "./ul";
 import { createList } from "./list";
 import { createSpan } from "./span";
@@ -9,6 +10,7 @@ window.Widget = {
     button: createButton,
     div: createDiv,
     input: createInput,
+    checkbox: createCheckbox,
     ul: createUl,
     list: createList,
     span: createSpan,
