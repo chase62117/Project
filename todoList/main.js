@@ -32,20 +32,6 @@ function render() {
         ],
     });
 
-    // todoListEl = Widget.ul("todoList");
-    // doneListEl = Widget.ul("todoListDone");
-
-    // todolist.filter(function(item) {return !item.done}).forEach(function (item) {
-    //     todoListEl.append(Widget.list("list", {
-    //         data: item,
-    //         columns: [
-    //             { id: "done", render: renderColumnDone },
-    //             { id: "todo", render: renderColumnTodo },
-    //             { id: "delete", render: renderColumnDelete },
-    //         ],
-    //     }))
-    // });
-
     div.append(todoListEl);
     div.append(doneListEl);
 }
@@ -68,7 +54,7 @@ function onClickSave() {
         done: false,
     })
 
-    todoListEl.reload(todolist.filter(function(item) {return !item.done}));
+    renderTodoList();
 }
 
 
@@ -109,6 +95,11 @@ function renderColumnDelete(id, data){
         id: id, 
         content: '삭제', 
         onClick: function (e) {
+            // filter 사용
+            // todolist = todolist.filter(function (item2) {
+            //     return item2 !== item; // filter를 사용하면 todolist의 저장 위치가 바뀐다. 새로운 배열을 만들어 반환하기 때문에
+            // })
+            
             // splice 사용
             todolist.splice(todolist.indexOf(data), 1); // 배열 자체 수정. 주소 유지됨
             data.done ? renderDoneList() : renderTodoList();
