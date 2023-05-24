@@ -71,6 +71,8 @@ function run(menu) {
         // 요리 목록에서 빼고 서빙 목록으로 이동
         renderCookings(); // 목록 재생성
         renderServings();
+
+        // 대기중인 서버 찾기
     })
 
 }
