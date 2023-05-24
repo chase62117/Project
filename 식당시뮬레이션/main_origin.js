@@ -21,6 +21,58 @@ document.getElementById("five").onclick = function () {
 };
 
 
+// 리스트 렌더링
+function renderOrders() {
+    // orders와 동기화
+    var ordersEl = document.getElementById("orders");
+    ordersEl.innerHTML = "";
+    orders.forEach(function (order){
+        var liEl = document.createElement("li");
+        liEl.textContent = order.name;
+        ordersEl.append(liEl);
+    });
+}
+
+function renderCookings() {
+    // cookings와 동기화
+    var cookingsEl = document.getElementById("cookings");
+    cookingsEl.innerHTML = "";
+    cookings.forEach(function (cooking){
+        var liEl = document.createElement("li");
+        liEl.textContent = cooking.name;
+        cookingsEl.append(liEl);
+    });
+}
+
+function renderServings() {
+    // servings와 동기화
+    var servingsEl = document.getElementById("servings");
+    servingsEl.innerHTML = "";
+    servings.forEach(function (serving){
+        var liEl = document.createElement("li");
+        liEl.textContent = serving.name;
+        servingsEl.append(liEl);
+    });
+}
+
+
+// 배열 이동
+function orderToCooking(menu) {
+    // 주문 -> 요리 이동
+    orders.splice(orders.indexOf(menu), 1); // orders에서 제거 -- splice 사용
+    cookings.push(menu);
+}
+
+function cookingToServing(menu) {
+    // 요리 -> 서빙 이동
+    cookings.splice(orders.indexOf(menu), 1); // cookings에서 제거 -- splice 사용
+    servings.push(menu);
+}
+
+function deleteOrder(menu) {
+    servings.splice(orders.indexOf(menu), 1); // cookings에서 제거 -- splice 사용
+}
+
 // forEach를 돌며 요리사를 찾는 함수
 function findReadyChef() {
     var readyChef;
@@ -47,7 +99,7 @@ function findReadyServer() {
 function run(menu) {
     // 메뉴 버튼을 누르면(run 실행) 주문 목록에 넣어주기
     orders.push(menu);
-    renderOrders(orders);
+    renderOrders();
     
     var chef;
     var server;
@@ -72,9 +124,9 @@ function run(menu) {
     var promise = findChef(); // promise
     promise.then(function () { // 대기 중인 요리사에게 요리 시키기
         // 요리 목록으로 이동
-        orderToCooking(menu, orders, cookings);
-        renderOrders(orders);
-        renderCookings(cookings);
+        orderToCooking(menu);
+        renderOrders();
+        renderCookings();
 
         // 요리사가 찾아지면 요리 시키기 (요리 시간만큼 대기)
         return new Promise(function(resolve) { // .then 사용
@@ -85,9 +137,9 @@ function run(menu) {
     }).then(function () { // 요리가 끝나면 실행 -- 대기중인 서버 찾기
 
         // 요리 목록에서 빼고 서빙 목록으로 이동
-        cookingToServing(menu, cookings, servings);
-        renderCookings(cookings); // 목록 재생성
-        renderServings(servings);
+        cookingToServing(menu);
+        renderCookings(); // 목록 재생성
+        renderServings();
 
         chef.status = "ready"; // 요리사 상태 대기로 바꿔주기
 
@@ -114,7 +166,7 @@ function run(menu) {
     }).then(function () {
         server.status = "ready"; // 서버 상태 바꾸기
         
-        deleteOrder(menu, servings); // 서빙 목록에서 제거
-        renderServings(servings); // 목록 렌더링
+        deleteOrder(menu); // 서빙 목록에서 제거
+        renderServings(); // 목록 렌더링
     });
 }
