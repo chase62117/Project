@@ -10,8 +10,6 @@ export function createList(id, option) {
         el.append(control.el);
     });
 
-
-
     // element, reload function, getValue function
     return {
         el: el,

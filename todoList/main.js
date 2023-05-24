@@ -5,6 +5,7 @@ var doneListEl;
 
 render();
 
+
 function render() {
     var root = document.getElementById("contents");
     var div = Widget.div("container", { parent: root });
@@ -13,8 +14,7 @@ function render() {
     div.append(Widget.button("btnSave", { content: "입력", onClick: onClickSave }));
 
     todoListEl = Widget.ul("todoList", {
-        //datas: getSortedTodoList({ done: false }),
-        datas: todolist.filter(function(item) {return !item.done}),
+        datas: filterTodoList({ done: false }),
         columns: [
             { id: "done", render: renderColumnDone },
             { id: "todo", render: renderColumnTodo },
@@ -23,8 +23,7 @@ function render() {
     });
 
     doneListEl = Widget.ul("todoListDone", {
-        //datas: getSortedTodoList({ done: true }),
-        datas: todolist.filter(function(item) {return item.done}),
+        datas: filterTodoList({ done: true }),
         columns: [
             { id: "done", render: renderColumnDone },
             { id: "todo", render: renderColumnTodo },
@@ -58,20 +57,12 @@ function onClickSave() {
 }
 
 
-function delBtnOnClick (e) {
-    //
-}
-
-
 function renderColumnDone(id, data) {
     var option = { 
         data: data,
         onChange: function (e) { 
         data.done = e.target.checked;
 
-
-        // todoListEl.reload(todolist.filter(function(item) {return !item.done}));
-        // doneListEl.reload(todolist.filter(function(item) {return item.done}));
         renderTodoList();
         renderDoneList();
     }};
@@ -80,6 +71,7 @@ function renderColumnDone(id, data) {
 
     return checkboxEl
 }
+
 
 function renderColumnTodo(id, data) {
     var option = {
@@ -90,6 +82,7 @@ function renderColumnTodo(id, data) {
     return Widget.span(id, option);
 }
 
+
 function renderColumnDelete(id, data){
     var option = {
         id: id, 
@@ -99,7 +92,7 @@ function renderColumnDelete(id, data){
             // todolist = todolist.filter(function (item2) {
             //     return item2 !== item; // filter를 사용하면 todolist의 저장 위치가 바뀐다. 새로운 배열을 만들어 반환하기 때문에
             // })
-            
+
             // splice 사용
             todolist.splice(todolist.indexOf(data), 1); // 배열 자체 수정. 주소 유지됨
             data.done ? renderDoneList() : renderTodoList();
@@ -109,10 +102,17 @@ function renderColumnDelete(id, data){
     return Widget.button(id, option);
 }
 
+
 function renderTodoList() {
-    todoListEl.reload(todolist.filter(function(item) {return !item.done}));
+    todoListEl.reload(filterTodoList({ done: false }));
 }
 
+
 function renderDoneList() {
-    doneListEl.reload(todolist.filter(function(item) {return item.done}));
+    doneListEl.reload(filterTodoList({ done: true }));
+}
+
+
+function filterTodoList(option){
+    return todolist.filter(function(item) {return item.done === option.done})
 }

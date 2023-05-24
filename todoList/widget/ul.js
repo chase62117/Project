@@ -11,9 +11,6 @@ export function createUl(id, option){
     return{
         el: el,
         
-        append: function(child){
-            el.append(child);
-        },
         reload: function (datas) {
             el.innerHTML = '';
             render(datas, option.columns); // createList의 option에 접근가능

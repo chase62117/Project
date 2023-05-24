@@ -16,8 +16,9 @@ window.Widget = {
     span: createSpan,
     
     getInputValue: function (id) {
-        var el = document.getElementById('todoInput');
-        var value = el.value
+        var el = document.getElementById(id);
+        var value = el.value;
+        
         // 다시 값을 입력받기 위한 준비
         el.value = '';
         el.focus();
