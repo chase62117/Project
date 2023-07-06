@@ -1,33 +1,29 @@
-// 리스트 렌더링
-
-function renderOrders(orders) {
+export function renderOrders(orders) {
     // orders와 동기화
-    var ordersEl = document.getElementById("orders");
+    const ordersEl = document.getElementById("orders");
     ordersEl.innerHTML = "";
-    orders.forEach(function (order){
-        var liEl = document.createElement("li");
+    orders.forEach(function (order) {
+        let liEl = document.createElement("li");
         liEl.textContent = order.name;
         ordersEl.append(liEl);
     });
 }
-
-function renderCookings(cookings) {
+export function renderCookings(cookings) {
     // cookings와 동기화
-    var cookingsEl = document.getElementById("cookings");
+    const cookingsEl = document.getElementById("cookings");
     cookingsEl.innerHTML = "";
-    cookings.forEach(function (cooking){
-        var liEl = document.createElement("li");
+    cookings.forEach(function (cooking) {
+        let liEl = document.createElement("li");
         liEl.textContent = cooking.name;
         cookingsEl.append(liEl);
     });
 }
-
-function renderServings(servings) {
+export function renderServings(servings) {
     // servings와 동기화
-    var servingsEl = document.getElementById("servings");
+    const servingsEl = document.getElementById("servings");
     servingsEl.innerHTML = "";
-    servings.forEach(function (serving){
-        var liEl = document.createElement("li");
+    servings.forEach(function (serving) {
+        let liEl = document.createElement("li");
         liEl.textContent = serving.name;
         servingsEl.append(liEl);
     });

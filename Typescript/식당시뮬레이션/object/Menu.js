@@ -1,4 +1,6 @@
-export function Menu(name, time) {
-    this.name = name;
-    this.time = time;
+export class Menu {
+    constructor(name, time) {
+        this.name = name;
+        this.time = time;
+    }
 }
