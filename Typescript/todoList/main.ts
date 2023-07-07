@@ -1,14 +1,28 @@
-var todolist = [];
+import { createEl } from "./BaseWidget.js";
 
-var todoListEl;
-var doneListEl;
+class TodoItem {
+    id: string;
+    content: string;
+    done: boolean;
+
+    constructor(id: string, content: string, done: boolean){
+        this.id = id;
+        this.content = content;
+        this.done = done;
+    }
+}
+
+let todolist: TodoItem[] = [];
+
+let todoListEl: HTMLUListElement;
+let doneListEl: HTMLUListElement;
 
 render();
 
 
 function render() {
-    var root = document.getElementById("contents");
-    var div = Widget.div("container", { parent: root });
+    const root = document.getElementById("contents"); // body
+    const div = createEl("div", { className: "container" }, { parent: root });
 
     div.append(Widget.input("todoInput", {}));
     div.append(Widget.button("btnSave", { content: "입력", onClick: onClickSave }));
@@ -47,12 +61,7 @@ function onClickSave() {
     }
 
     // todolist에 push
-    todolist.push({
-        id: crypto.randomUUID(),
-        content: value,
-        done: false,
-    })
-
+    todolist.push(new TodoItem (crypto.randomUUID(), value, false));
     renderTodoList();
 }
 

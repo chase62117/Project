@@ -3,7 +3,5 @@
       "target": "es6",
       "module": "ES2015",
       "noImplicitAny": true
-    },
-
-    "include": ["./*.ts", "./object/*.ts"],
+    }
 }
